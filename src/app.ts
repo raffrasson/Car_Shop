@@ -12,7 +12,8 @@ const carsService = new CarsService(repository);
 const carsController = new CarsController(carsService);
 
 app.use(express.json());
-app.use('/cars', (req, res) => carsController.create(req, res));
+app.post('/cars', (req, res) => carsController.create(req, res));
+app.get('/cars', (req, res) => carsController.getAll(req, res));
 app.use(errorHandler);
 
 export default app;
