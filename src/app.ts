@@ -4,6 +4,7 @@ import errorHandler from './middlewares/errors';
 import CarsController from './controllers/carsController';
 import CarsModel from './models/CarsModel';
 import CarsService from './services/CarsService';
+import carErrors from './middlewares/carErrors';
 
 const app = express();
 
@@ -14,6 +15,7 @@ const carsController = new CarsController(carsService);
 app.use(express.json());
 app.post('/cars', (req, res) => carsController.create(req, res));
 app.get('/cars', (req, res) => carsController.getAll(req, res));
+app.get('/cars/:id', carErrors, (req, res) => carsController.getOne(req, res));
 app.use(errorHandler);
 
 export default app;

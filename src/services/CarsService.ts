@@ -10,7 +10,7 @@ class CarsService implements IService<ICar> {
     this._car = model;
   }
 
-  public async create(obj:ICar):Promise<ICar> {
+  public async create(obj:ICar): Promise<ICar> {
     const parsed = carSchema.safeParse(obj);
     if (!parsed.success) {
       throw parsed.error;
@@ -18,15 +18,16 @@ class CarsService implements IService<ICar> {
     return this._car.create(obj);
   }
 
-  public async readOne(_id:string):Promise<ICar> {
+  public async readOne(_id:string): Promise<ICar> {
     const car = await this._car.readOne(_id);
-    if (!car) throw new Error(ErrorTypes.EntityNotFound);
+    if (!car) throw new Error(ErrorTypes.ObjectNotFound);
+
     return car;
   }  
   
   public async read(): Promise<ICar[]> {
     const cars = await this._car.read();
-    if (!cars) throw new Error(ErrorTypes.EntityNotFound);
+    if (!cars) throw new Error(ErrorTypes.ObjectNotFound);
     return cars;
   }
   public async update(string: string, obj: object): Promise<ICar> {
