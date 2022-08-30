@@ -37,25 +37,23 @@ export default class CarsController {
     return res.status(200).json(result);
   }
 
-  // public async update(
-  //   req: Request, 
-  //   res: Response<ICar>,
-  // ) {
-  //   const { id } = req.params; 
+  public async update(
+    req: Request, 
+    res: Response<ICar>,
+  ) {
+    const { id } = req.params; 
+    console.log(id);
+    const result = await this._service.update(id, req.body);
 
-  //   const results = await this._service.update(id, req.body);
-    
-  //   console.log(results);
+    return res.status(200).json(result);
+  }
 
-  //   return res.status(200).json(results);
-  // }
-
-  // public async delete(
-  //   req: Request, 
-  //   res: Response<ICar>,
-  // ) {
-  //   const { id } = req.params; 
-  //   await this._service.delete(id);
-  //   return res.status(204);
-  // }
+  public async delete(
+    req: Request, 
+    res: Response<ICar>,
+  ) {
+    const { id } = req.params; 
+    await this._service.delete(id);
+    return res.status(204).end();
+  }
 }

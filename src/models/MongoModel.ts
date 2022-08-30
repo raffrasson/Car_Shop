@@ -19,12 +19,12 @@ abstract class MongoModel<T> implements IModel<T> {
   public async update(string: string, object: object): Promise<T | null> {
     return this._model.findOneAndUpdate(
       { string },
-      { object },
+      object,
       { new: true }, // no Mongoose usa new, e não returnDocument. fonte: https://stackoverflow.com/questions/24747189/update-and-return-document-in-mongodb
     );
   }
   public async delete(string: string): Promise<T | null> {
-    return this._model.findOneAndDelete({ string });
+    return this._model.findOneAndDelete({ _id: string });
   }
 }
 
