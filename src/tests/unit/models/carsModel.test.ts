@@ -37,6 +37,36 @@ describe('Cars Model', () => {
 		});
 	});
 
+  describe('searching all cars', () => {
+		it('successfully found', async () => {
+			const carsFound = await carsModel.read();
+			expect(carsFound).to.be.deep.equal(carsArrayMock);
+		});
+
+		it('_id not found', async () => {
+			try {
+				await carsModel.read();
+			} catch (error: any) {
+				expect(error.message).to.be.eq('InvalidMongoId');
+			}
+		});
+	});
+
+  describe('searching and updating a car', () => {
+		it('successfully found', async () => {
+      const updatedCar = await carsModel.update('630d5b55ef135d91c6440009', updatedCarMock);
+			expect(updatedCar).to.be.deep.equal(updatedCarMock);
+		});
+
+		it('_id not found', async () => {
+			try {
+				await carsModel.read();
+			} catch (error: any) {
+				expect(error.message).to.be.eq('InvalidMongoId');
+			}
+		});
+	});
+
 
 	after(() => {
 		sinon.restore();

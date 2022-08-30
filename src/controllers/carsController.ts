@@ -34,7 +34,28 @@ export default class CarsController {
 
     const result = await this._service.readOne(id);
     
-    console.log(result);
     return res.status(200).json(result);
   }
+
+  // public async update(
+  //   req: Request, 
+  //   res: Response<ICar>,
+  // ) {
+  //   const { id } = req.params; 
+
+  //   const results = await this._service.update(id, req.body);
+    
+  //   console.log(results);
+
+  //   return res.status(200).json(results);
+  // }
+
+  // public async delete(
+  //   req: Request, 
+  //   res: Response<ICar>,
+  // ) {
+  //   const { id } = req.params; 
+  //   await this._service.delete(id);
+  //   return res.status(204);
+  // }
 }

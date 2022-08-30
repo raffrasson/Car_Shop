@@ -36,7 +36,11 @@ class CarsService implements IService<ICar> {
       throw parsed.error;
     }
 
-    return this._car.update(string, parsed);
+    const updatedCar = this._car.update(string, obj);
+
+    if (!updatedCar) throw new Error(ErrorTypes.ObjectNotFound);
+
+    return updatedCar;
   }
   public async delete(string: string) {
     return this._car.delete(string);
