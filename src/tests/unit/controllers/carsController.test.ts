@@ -4,9 +4,9 @@ import { NextFunction, Request, Response } from 'express';
 import CarsController from '../../../controllers/carsController';
 import CarsModel from '../../../models/CarsModel';
 import CarsService from '../../../services/CarsService';
-import { carMock, carMockWithId } from '../mocks/carsMock';
+import { carMock, carMockWithId, carsArrayMock } from '../mocks/carsMock';
 
-describe('Frame Controller', () => {
+describe('Car Controller', () => {
 	const carModel = new CarsModel();
 	const carService = new CarsService(carModel);
   const carController = new CarsController(carService);
@@ -18,6 +18,7 @@ describe('Frame Controller', () => {
   before(() => {
     sinon.stub(carService, 'create').resolves(carMock);
     sinon.stub(carService, 'readOne').resolves(carMock);
+    sinon.stub(carService, 'read').resolves(carsArrayMock);
 
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns(res);
@@ -27,7 +28,7 @@ describe('Frame Controller', () => {
     sinon.restore()
   })
 
-  describe('Create Frame', () => {
+  describe('Create Car', () => {
     it('Success', async () => {
       req.body = carMock;
       await carController.create(req, res);
@@ -38,12 +39,23 @@ describe('Frame Controller', () => {
     });
   });
 
-  describe('ReadOne Frame', () => {
+  describe('ReadOne Car', () => {
     it('Success', async () => {
       // como fizemos o dublê da service o valor do `req.params.id` não vai chegar na model
       // logo ele só precisa ser um string e existir
       req.params = { id: carMockWithId._id };
       await carController.getOne(req, res);
+
+      expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
+      expect((res.json as sinon.SinonStub).calledWith(carMock)).to.be.true;
+    });
+  });
+
+  describe('ReadAll Cars', () => {
+    it('Success', async () => {
+      // como fizemos o dublê da service o valor do `req.params.id` não vai chegar na model
+      // logo ele só precisa ser um string e existir
+      await carController.getAll(req, res);
 
       expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
       expect((res.json as sinon.SinonStub).calledWith(carMock)).to.be.true;

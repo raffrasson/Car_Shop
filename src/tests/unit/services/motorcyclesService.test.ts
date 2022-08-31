@@ -21,7 +21,7 @@ describe('Motorcycle Service', () => {
 	after(() => {
 		sinon.restore()
 	})
-	describe('Create car', () => {
+	describe('Create motorcycle', () => {
 		// it('Success', async () => {
 		// 	const carCreated = await motorcycleService.create(motorcycleMockWithId._id as any);
 
@@ -38,7 +38,7 @@ describe('Motorcycle Service', () => {
 		});
 	});
 
-	describe('ReadOne car', () => {
+	describe('ReadOne motorcycle', () => {
 		// it('Success', async () => {
 		// 	const carCreated = await motorcycleService.readOne(motorcycleMockWithId._id);
 
