@@ -26,6 +26,7 @@ const motorcycleSchema = new Schema<IMotorcycle>(
     },
     category: {
       type: String,
+      enum: ['Street', 'Custom', 'Trail'],
       required: true,
     },
     engineCapacity: {
